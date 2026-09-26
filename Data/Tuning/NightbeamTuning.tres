@@ -1,0 +1,45 @@
+[gd_resource type="Resource" script_class="NightbeamTuning" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Scripts/Sim/NightbeamTuning.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+dawn_time = 180.0
+hull_max = 5
+sim_hz = 60
+beam_turn_speed = 2.6
+beam_half_width = 0.26
+beam_range = 260.0
+spawn_radius = 250.0
+reef_radius = 48.0
+max_entities = 64
+despawn_margin = 10.0
+ship_heading_jitter = 0.25
+ship_speed_start = 22.0
+ship_speed_end = 40.0
+saved_speed = 55.0
+guide_time = 1.0
+guide_decay = 0.3
+spawn_interval_start = 2.7
+spawn_interval_end = 0.6
+first_spawn_delay = 1.5
+min_spawn_separation = 0.35
+shade_start_time = 15.0
+shade_chance_start = 0.2
+shade_chance_end = 0.5
+shade_speed_dark = 20.0
+shade_speed_lit = 500.0
+shade_lifetime = 13.0
+shade_hold_radius = 120.0
+shade_fade_time = 0.75
+lone_shade_time = 7.0
+shade_gap = 0.6
+spawn_retry_step = 0.35
+flare_start_charges = 1
+flare_max_charges = 2
+flare_saves_per_charge = 7
+flare_cooldown = 2.0
+flare_guide = 0.6
+flare_radius = 140.0
+score_per_save = 10
+score_per_hull = 25

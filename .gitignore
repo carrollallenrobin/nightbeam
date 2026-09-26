@@ -1,0 +1,11 @@
+.godot/
+Builds/*
+!Builds/.gdignore
+Tests/Results/*
+!Tests/Results/.gdignore
+.playtest/runs/
+*.tmp
+
+.playtest/runs/
+.studio/
+.playtest/local.json

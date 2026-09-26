@@ -1,0 +1,90 @@
+{
+  "name": "NIGHTBEAM",
+  "build": "",
+  "adapter": ".playtest/adapter.mjs",
+  "created": 1790387138969,
+  "current": "R13",
+  "nextRun": 14,
+  "integrations": {
+    "gameStudio": "auto"
+  },
+  "check": {
+    "tolerance": 0.1,
+    "abs": 0,
+    "metrics": {
+      "won": {
+        "better": "higher"
+      },
+      "lost": {
+        "better": "lower"
+      },
+      "time_survived": {
+        "better": "higher"
+      },
+      "saved": {
+        "better": "higher",
+        "abs": 1
+      },
+      "score": {
+        "better": "higher",
+        "abs": 10
+      },
+      "hull": {
+        "better": "higher",
+        "abs": 0.3
+      },
+      "flares_used": {
+        "abs": 1
+      },
+      "idle.time_survived": {
+        "min": 20,
+        "max": 35
+      },
+      "greedy.won": {
+        "better": null,
+        "abs": 0.07,
+        "max": 0.15
+      },
+      "greedy.lost": {
+        "better": null,
+        "abs": 0.07
+      },
+      "greedy.time_survived": {
+        "better": null,
+        "min": 70,
+        "max": 140
+      },
+      "greedy.saved": {
+        "better": null,
+        "min": 25,
+        "max": 50
+      },
+      "greedy.score": {
+        "better": null
+      },
+      "greedy.hull": {
+        "better": null
+      },
+      "greedy.flares_used": {
+        "ignore": true
+      },
+      "careful.won": {
+        "min": 0.45,
+        "max": 0.85
+      },
+      "careful.lost": {
+        "min": 0.15,
+        "max": 0.55
+      },
+      "careful.time_survived": {
+        "min": 150
+      },
+      "careful.saved": {
+        "min": 50
+      },
+      "careful.flares_used": {
+        "max": 9
+      }
+    }
+  }
+}

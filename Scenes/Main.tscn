@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://Scripts/Game/GameFlow.gd" id="1"]
+[ext_resource type="Script" path="res://Scripts/View/NightbeamView.gd" id="2"]
+[ext_resource type="Script" path="res://Scripts/View/HudView.gd" id="3"]
+[ext_resource type="Script" path="res://Scripts/View/SynthAudio.gd" id="4"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1")
+
+[node name="NightbeamView" type="Node2D" parent="."]
+script = ExtResource("2")
+
+[node name="Hud" type="CanvasLayer" parent="."]
+
+[node name="HudView" type="Control" parent="Hud"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("3")
+
+[node name="SynthAudio" type="Node" parent="."]
+script = ExtResource("4")
