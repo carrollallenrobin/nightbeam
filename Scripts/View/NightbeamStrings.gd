@@ -10,7 +10,7 @@ const TAGLINE: String = "The old lamp's last night. The reef remembers."
 const TEACHING_LINE: String = "Light shows ships the rocks, and calls the drowned."
 const TITLE_SEED: String = "SEED %d"
 const TITLE_START_HINT: String = "Space to light    N new seed"
-const CONTROLS_HINT: String = "A / D or ← / → turn the beam    Space flare    Esc pause"
+const CONTROLS_HINT: String = "A / D or arrow keys turn the beam    Space flare    Esc pause"
 
 # --- End cards ---
 const WIN_TITLE: String = "Dawn. The drowned go back to sleep."

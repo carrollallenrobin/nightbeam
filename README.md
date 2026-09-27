@@ -2,6 +2,8 @@
 
 **The old lamp's last night. The reef remembers.** You are the keeper of a lighthouse on a reef. Turn one narrow beam through a three-minute night: light shows the ships the rocks so they turn back to sea, but it also calls the drowned, ghost ships of every wreck this reef ever caused, and they come straight for your lamp.
 
+**Play in the browser:** https://mhwangbo.github.io/nightbeam/
+
 ![A night in NIGHTBEAM](screenshots/night.png)
 
 ## How to play
@@ -31,6 +33,16 @@ godot --path .
 ```
 
 Start a specific night with `godot --path . -- --seed=42`.
+
+### Web build
+
+The browser version is a Godot web export without threads (GitHub Pages can't send the cross-origin isolation headers threads need), published from the `gh-pages` branch. With the 4.6.1 web export templates installed:
+
+```bash
+godot --headless --path . --export-release "Web" Builds/Web/index.html
+```
+
+then commit the contents of `Builds/Web/` (plus an empty `.nojekyll`) to `gh-pages`.
 
 ### Tests and bots
 
