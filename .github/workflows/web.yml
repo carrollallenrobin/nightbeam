@@ -1,0 +1,93 @@
+# Builds the web version with Godot on every push to main and publishes it on GitHub Pages.
+# One-time setup in the repository: Settings -> Pages -> Source: "GitHub Actions".
+name: Web build to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    # Files that never end up in the web build (see the "Web" preset's exclude filter).
+    paths-ignore:
+      - "**.md"
+      - "design/**"
+      - "screenshots/**"
+      - "Tests/**"
+      - ".playtest/**"
+      - "LICENSE"
+      - ".gitignore"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+env:
+  GODOT_VERSION: "4.7.2"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Godot and the web export templates are cached, so only the first run downloads them.
+      - name: Cache Godot
+        id: cache-godot
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/godot
+            ~/.local/share/godot/export_templates
+          key: godot-${{ env.GODOT_VERSION }}-web
+
+      - name: Install Godot and the web templates
+        if: steps.cache-godot.outputs.cache-hit != 'true'
+        run: |
+          base="https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable"
+          templates="$HOME/.local/share/godot/export_templates/${GODOT_VERSION}.stable"
+          mkdir -p ~/godot "$templates"
+          cd ~/godot
+          wget -q "$base/Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip"
+          unzip -q "Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip"
+          mv "Godot_v${GODOT_VERSION}-stable_linux.x86_64" godot
+          wget -q "$base/Godot_v${GODOT_VERSION}-stable_export_templates.tpz"
+          unzip -q -j "Godot_v${GODOT_VERSION}-stable_export_templates.tpz" \
+            templates/web_nothreads_release.zip templates/web_nothreads_debug.zip templates/version.txt \
+            -d "$templates"
+          rm -f ./*.zip ./*.tpz
+
+      # Imported assets. Godot checks each source file's hash and reimports only what changed,
+      # so restoring an older cache is safe.
+      - name: Cache imported assets
+        uses: actions/cache@v4
+        with:
+          path: .godot
+          key: godot-import-${{ env.GODOT_VERSION }}-${{ hashFiles('project.godot', 'export_presets.cfg', '**/*.gd', '**/*.tscn', '**/*.tres', '**/*.import') }}
+          restore-keys: godot-import-${{ env.GODOT_VERSION }}-
+
+      - name: Export the web build
+        run: |
+          mkdir -p build/web
+          ~/godot/godot --headless --path . --import
+          ~/godot/godot --headless --path . --export-release "Web" build/web/index.html
+          test -f build/web/index.html
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/web
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
